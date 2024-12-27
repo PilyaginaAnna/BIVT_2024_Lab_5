@@ -15,48 +15,48 @@ public class Program
         Program program = new Program();
     }
     #region Level 1
+    //TASK 1
+    // create and use Combinations(n, k);
+    public long Combinations(int n, int k) //static –Ω–µ –æ–±—è–∑–∞—Ç–µ–ª—å–Ω–æ –ø—Ä–æ–ø–∏—Å—ã–≤–∞—Ç—å
+    {
+        if (k < 0 || k > n) return 0;
+        return Factorial(n) / (Factorial(k) * Factorial(n - k));
+    }
+    // create and use Factorial(n);
+    public long Factorial(long n)
+    {
+        if (n == 0) return 1;
+        long f = 1;
+        for (int i = 1; i <= n; i++)
+        {
+            f *= i;
+        }
+        return f;
+    }
     public long Task_1_1(int n, int k)
     {
         long answer = 0;
 
         // code here
-        // create and use Combinations(n, k);
-        static long Combinations(int n, int k) //static ÌÂ Ó·ˇÁ‡ÚÂÎ¸ÌÓ ÔÓÔËÒ˚‚‡Ú¸
-        {
-            if (k < 0 || k > n) return 0;
-            return Factorial(n) / (Factorial(k) * Factorial(n - k));
-        }
-        // create and use Factorial(n);
-        static long Factorial(long n)
-        {
-            if (n == 0) return 1;
-            long f = 1;
-            for (int i = 1; i <= n; i++)
-            {
-                f *= i;
-            }
-            return f;
-        }
-
         answer = Combinations(n, k);
         // end
 
         return answer;
     }
 
+    //TASK 2
+    // create and use GeronArea(a, b, c);
+    public double GeronArea(double a, double b, double c)
+    {
+        double s = (a + b + c) / 2;
+        if (s <= a || s <= b || s <= c) return 0;
+        return Math.Sqrt(s * (s - a) * (s - b) * (s - c));
+    }
     public int Task_1_2(double[] first, double[] second)
     {
         int answer = 0;
 
         // code here
-
-        // create and use GeronArea(a, b, c);
-        static double GeronArea(double a, double b, double c)
-        {
-            double s = (a + b + c) / 2;
-            if (s <= a || s <= b || s <= c) return 0;
-            return Math.Sqrt(s * (s - a) * (s - b) * (s - c));
-        }
         double Area1 = GeronArea(first[0], first[1], first[2]);
         double Area2 = GeronArea(second[0], second[1], second[2]);
         if (Area1 == 0 || Area2 == 0) return -1;
@@ -69,17 +69,17 @@ public class Program
         return answer;
     }
 
+    //TASK 3
+    // create and use GetDistance(v, a, t); t - hours
+    public double GetDistance(double v, double a, double t)
+    {
+        return v * t + (a * t * t) / 2;
+    }
     public int Task_1_3a(double v1, double a1, double v2, double a2, int time)
     {
         int answer = 0;
 
         // code here
-
-        // create and use GetDistance(v, a, t); t - hours
-        static double GetDistance(double v, double a, double t)
-        {
-            return v * t + (a * t * t) / 2;
-        }
         double distance1 = GetDistance(v1, a1, time);
         double distance2 = GetDistance(v2, a2, time);
         if (distance1 > distance2) return 1;
@@ -90,18 +90,11 @@ public class Program
         // first = 1, second = 2, equal = 0
         return answer;
     }
-
     public int Task_1_3b(double v1, double a1, double v2, double a2)
     {
         int answer = 0;
 
         // code here
-
-        // use GetDistance(v, a, t); t - hours
-        static double GetDistance(double v, double a, double t)
-        {
-            return v * t + (a * t * t) / 2;
-        }
         for (int t = 1; ; t++)
         {
             if (GetDistance(v2, a2, t) >= GetDistance(v1, a1, t))
@@ -117,28 +110,28 @@ public class Program
     #endregion
 
     #region Level 2
-    public void Task_2_1(int[,] A, int[,] B)
+    // create and use FindMaxIndex(matrix, out row, out column);
+    public void FindMaxIndex(int[,] matrix, out int row, out int col)
     {
-        // code here
-
-        // create and use FindMaxIndex(matrix, out row, out column);
-        static void FindMaxIndex(int[,] matrix, out int row, out int col)
+        row = 0; col = 0;
+        int max = matrix[0, 0];
+        for (int i = 0; i < matrix.GetLength(0); i++)
         {
-            row = 0; col = 0;
-            int max = matrix[0, 0];
-            for (int i = 0; i < matrix.GetLength(0); i++)
+            for (int j = 0; j < matrix.GetLength(1); j++)
             {
-                for (int j = 0; j < matrix.GetLength(1); j++)
+                if (matrix[i, j] > max)
                 {
-                    if (matrix[i, j] > max) 
-                    {
-                        max = matrix[i, j];
-                        row = i; 
-                        col = j;
-                    }
+                    max = matrix[i, j];
+                    row = i;
+                    col = j;
                 }
             }
         }
+    }
+    public void Task_2_1(int[,] A, int[,] B)
+    {
+        // code here
+        if (A == null || A.GetLength(0) == 0 || B == null || B.GetLength(0) == 0) return;
         int rowA, colA, rowB, colB;
         FindMaxIndex(A, out rowA, out colA);
         FindMaxIndex(B, out rowB, out colB);
@@ -158,48 +151,48 @@ public class Program
         // end
     }
 
+    //TASK_2_3
+    //  create and use method FindDiagonalMaxIndex(matrix);
+    public int FindDiagonalMaxIndex(int[,] matrix)
+    {
+        if (matrix == null || matrix.GetLength(0) == 0) return -1;
+        int maxi = 0, max = matrix[0, 0];
+        for (int i = 0; i < matrix.GetLength(0); i++)
+        {
+            if (matrix[i, i] > max)
+            {
+                max = matrix[i, i];
+                maxi = i;
+            }
+        }
+        return maxi;
+    }
+    //DeleteRow
+    public int[,] DeleteRow(int[,] matrix, int rowi)
+    {
+        int row = matrix.GetLength(0);
+        int col = matrix.GetLength(1);
+        if (rowi < 0 || rowi >= row) return matrix;
+        int[,] newmatrix = new int[row - 1, col];
+        for (int i = 0; i < rowi; i++)
+        {
+            for (int j = 0; j < col; j++)
+            {
+                newmatrix[i, j] = matrix[i, j];
+            }
+        }
+        for (int i = rowi; i < row - 1; i++)
+        {
+            for (int j = 0; j < col; j++)
+            {
+                newmatrix[i, j] = matrix[i + 1, j];
+            }
+        }
+        return newmatrix;
+    }
     public void Task_2_3(ref int[,] B, ref int[,] C)
     {
         // code here
-
-        //  create and use method FindDiagonalMaxIndex(matrix);
-        static int FindDiagonalMaxIndex(int[,] matrix)
-        {
-            if (matrix == null || matrix.GetLength(0) == 0) return -1;
-            int maxi = 0, max = matrix[0, 0];
-            for (int i = 0; i < matrix.GetLength(0); i++)
-            {
-                if (matrix[i, i] > max)
-                {
-                    max = matrix[i, i];
-                    maxi = i;
-                }
-            }
-            return maxi;
-        }
-        //DeleteRow
-        static int[,] DeleteRow(int[,] matrix, int rowi)
-        {
-            int row = matrix.GetLength(0);
-            int col = matrix.GetLength(1);
-            if (rowi < 0 || rowi >= row) return matrix;
-            int[,] newmatrix = new int[row - 1, col];
-            for (int i = 0; i < rowi; i++)
-            {
-                for (int j = 0; j < col; j++)
-                {
-                    newmatrix[i, j] = matrix[i, j];
-                }
-            }
-            for (int i = rowi; i < row - 1; i++)
-            {
-                for (int j = 0; j < col; j++)
-                {
-                    newmatrix[i, j] = matrix[i + 1, j];
-                }
-            }
-            return newmatrix;
-        }
         int rowiB = FindDiagonalMaxIndex(B);
         int rowiC = FindDiagonalMaxIndex(C);
         if (rowiB != -1 && B != null) B = DeleteRow(B, rowiB);
@@ -216,29 +209,30 @@ public class Program
         // end
     }
 
+
+    //TASK_2_5
+    // create and use FindMaxInColumn(matrix, columnIndex, out rowIndex);
+    public void FindMaxInColumn(int[,] matrix, int columnIndex, out int rowIndex)
+    {
+        if (matrix == null || matrix.GetLength(0) == 0 || columnIndex < 0 || columnIndex >= matrix.GetLength(1))
+        {
+            rowIndex = -1;
+            return;
+        }
+        rowIndex = 0;
+        int max = matrix[0, columnIndex];
+        for (int i = 1; i < matrix.GetLength(0); i++)
+        {
+            if (matrix[i, columnIndex] > max)
+            {
+                max = matrix[i, columnIndex];
+                rowIndex = i;
+            }
+        }
+    }
     public void Task_2_5(int[,] A, int[,] B)
     {
         // code here
-
-        // create and use FindMaxInColumn(matrix, columnIndex, out rowIndex);
-        static void FindMaxInColumn(int[,] matrix, int columnIndex, out int rowIndex)
-        {
-            if (matrix == null || matrix.GetLength(0) == 0 || columnIndex < 0 || columnIndex >= matrix.GetLength(1))
-            {
-                rowIndex = -1;
-                return;
-            }
-            rowIndex = 0;
-            int max = matrix[0, columnIndex];
-            for (int i = 1; i < matrix.GetLength(0); i++)
-            {
-                if (matrix[i, columnIndex] > max)
-                {
-                    max = matrix[i, columnIndex];
-                    rowIndex = i;
-                }
-            }
-        }
         int rowiA, rowiB;
         FindMaxInColumn(A, 0, out rowiA);
         FindMaxInColumn(B, 0, out rowiB);
@@ -275,33 +269,34 @@ public class Program
 
         // end
     }
+    
 
+    //TASK_2_7
+    // create and use CountRowPositive(matrix, rowIndex);
+    public int CountRowPositive(int[,] matrix, int rowIndex)
+    {
+        if (matrix == null || matrix.GetLength(0) == 0) return -1;
+        int k = 0;
+        for (int j = 0; j < matrix.GetLength(1); j++)
+        {
+            if (matrix[rowIndex, j] > 0) k++;
+        }
+        return k;
+    }
+    // create and use CountColumnPositive(matrix, colIndex);
+    public int CountColumnPositive(int[,] matrix, int colIndex)
+    {
+        if (matrix == null || matrix.GetLength(0) == 0) return -1;
+        int k = 0;
+        for (int i = 0; i < matrix.GetLength(0); i++)
+        {
+            if (matrix[i, colIndex] > 0) k++;
+        }
+        return k;
+    }
     public void Task_2_7(ref int[,] B, int[,] C)
     {
         // code here
-
-        // create and use CountRowPositive(matrix, rowIndex);
-        static int CountRowPositive(int[,] matrix, int rowIndex)
-        {
-            if (matrix == null || matrix.GetLength(0) == 0) return -1;
-            int k = 0;
-            for (int j = 0; j < matrix.GetLength(1); j++)
-            {
-                if (matrix[rowIndex, j] > 0) k++; 
-            }
-            return k;
-        }
-        // create and use CountColumnPositive(matrix, colIndex);
-        static int CountColumnPositive(int[,] matrix, int colIndex)
-        {
-            if (matrix == null || matrix.GetLength(0) == 0) return -1;
-            int k = 0;
-            for (int i = 0; i < matrix.GetLength(0); i++)
-            {
-                if (matrix[i, colIndex] > 0) k++;
-            }
-            return k;
-        }
         int maxi = -1, maxki = -1;
         int maxj = -1, maxkj = -1;
         if (B != null && B.GetLength(0) != 0)
@@ -363,30 +358,31 @@ public class Program
         // end
     }
 
+
+    //TASK_2_9
+    // create and use SumPositiveElementsInColumns(matrix);
+    public int[] SumPositiveElementsInColumns(int[,] matrix)
+    {
+        if (matrix == null || matrix.GetLength(0) == 0) return null;
+        int row = matrix.GetLength(0);
+        int col = matrix.GetLength(1);
+        int[] sums = new int[col];
+        for (int j = 0; j < col; j++)
+        {
+            int sum = 0;
+            for (int i = 0; i < row; i++)
+            {
+                if (matrix[i, j] > 0) sum += matrix[i, j];
+            }
+            sums[j] = sum;
+        }
+        return sums;
+    }
     public int[] Task_2_9(int[,] A, int[,] C)
     {
         int[] answer = default(int[]);
 
         // code here
-
-        // create and use SumPositiveElementsInColumns(matrix);
-        static int[] SumPositiveElementsInColumns(int[,] matrix)
-        {
-            if (matrix == null || matrix.GetLength(0) == 0) return null;
-            int row = matrix.GetLength(0);
-            int col = matrix.GetLength(1);
-            int[] sums = new int[col];
-            for (int j = 0; j < col; j++)
-            {
-                int sum = 0;
-                for (int i = 0; i < row; i++)
-                {
-                    if (matrix[i, j] > 0) sum += matrix[i, j];
-                }
-                sums[j] = sum;
-            }
-            return sums;
-        }
         int[] sumsA = SumPositiveElementsInColumns(A);
         int[] sumsC = SumPositiveElementsInColumns(C);
         if (sumsA == null || sumsC == null || sumsA.Length == 0 || sumsC.Length == 0) return null;
@@ -408,28 +404,12 @@ public class Program
         // end
     }
 
+
+    //TASK_2_11
+    // use FindMaxIndex(matrix, out row, out column); from Task_2_1
     public void Task_2_11(int[,] A, int[,] B)
     {
         // code here
-
-        // use FindMaxIndex(matrix, out row, out column); from Task_2_1
-        static void FindMaxIndex(int[,] matrix, out int row, out int col)
-        {
-            row = 0; col = 0;
-            int max = matrix[0, 0];
-            for (int i = 0; i < matrix.GetLength(0); i++)
-            {
-                for (int j = 0; j < matrix.GetLength(1); j++)
-                {
-                    if (matrix[i, j] > max)
-                    {
-                        max = matrix[i, j];
-                        row = i;
-                        col = j;
-                    }
-                }
-            }
-        }
         int maxArow, maxAcol;
         int maxBrow, maxBcol;
         FindMaxIndex(A, out maxArow, out maxAcol);
@@ -448,65 +428,50 @@ public class Program
         // end
     }
 
+
+    //TASK_2_13
+    //FindMaxIndex
+    //FindMinIndex
+    public void FindMinIndex(int[,] matrix, out int row, out int col)
+    {
+        row = 0; col = 0;
+        int min = 1000;
+        for (int i = 0; i < matrix.GetLength(0); i++)
+        {
+            for (int j = 0; j < matrix.GetLength(1); j++)
+            {
+                if (matrix[i, j] < min)
+                {
+                    min = matrix[i, j];
+                    row = i;
+                    col = j;
+                }
+            }
+        }
+    }
+    // create and use RemoveRow(matrix, rowIndex);
+    public int[,] RemoveRow(int[,] matrix, int rowIndex)
+    {
+        int row = matrix.GetLength(0);
+        int col = matrix.GetLength(1);
+        int[,] newMatrix = new int[row - 1, col];
+        for (int i = 0, newRow = 0; i < row; i++)
+        {
+            if (i != rowIndex)
+            {
+                for (int j = 0; j < col; j++)
+                {
+                    newMatrix[newRow, j] = matrix[i, j];
+                }
+                newRow++;
+            }
+        }
+        return newMatrix;
+    }
     public void Task_2_13(ref int[,] matrix)
     {
         // code here
         if (matrix == null || matrix.Length == 0) return;
-        //FindMaxIndex
-        static void FindMaxIndex(int[,] matrix, out int row, out int col)
-        {
-            row = 0; col = 0;
-            int max = -1000;
-            for (int i = 0; i < matrix.GetLength(0); i++)
-            {
-                for (int j = 0; j < matrix.GetLength(1); j++)
-                {
-                    if (matrix[i, j] > max)
-                    {
-                        max = matrix[i, j];
-                        row = i;
-                        col = j;
-                    }
-                }
-            }
-        }
-        //FindMinIndex
-        static void FindMinIndex(int[,] matrix, out int row, out int col)
-        {
-            row = 0; col = 0;
-            int min = 1000;
-            for (int i = 0; i < matrix.GetLength(0); i++)
-            {
-                for (int j = 0; j < matrix.GetLength(1); j++)
-                {
-                    if (matrix[i, j] < min)
-                    {
-                        min = matrix[i, j];
-                        row = i;
-                        col = j;
-                    }
-                }
-            }
-        }
-        // create and use RemoveRow(matrix, rowIndex);
-        static int[,] RemoveRow(int[,] matrix, int rowIndex)
-        {
-            int row = matrix.GetLength(0);
-            int col = matrix.GetLength(1);
-            int[,] newMatrix = new int[row - 1, col];
-            for (int i = 0, newRow = 0; i < row; i++)
-            {
-                if (i != rowIndex)
-                {
-                    for (int j = 0; j < col; j++)
-                    {
-                        newMatrix[newRow, j] = matrix[i, j];
-                    }
-                    newRow++;
-                }
-            }
-            return newMatrix;
-        }
         FindMaxIndex(matrix, out int maxrow, out int maxcol);
         FindMinIndex(matrix, out int minrow, out int mincol);
         if (maxrow == minrow)
@@ -531,33 +496,34 @@ public class Program
         // end
     }
 
+
+    //TASK_2_15
+    // create and use GetAverageWithoutMinMax(matrix);
+    public double GetAverageWithoutMinMax(int[,] matrix)
+    {
+        if (matrix == null || matrix.GetLength(0) == 0) return 0;
+        int min = 1000, max = -1000, k = 0;
+        double sum = 0;
+        for (int i = 0; i < matrix.GetLength(0); i++)
+        {
+            for (int j = 0; j < matrix.GetLength(1); j++)
+            {
+                int num = matrix[i, j];
+                if (num < min) min = num;
+                if (num > max) max = num;
+                sum += num;
+                k++;
+            }
+        }
+        sum -= (max + min);
+        k -= 2;
+        return sum / k;
+    }
     public int Task_2_15(int[,] A, int[,] B, int[,] C)
     {
         int answer = 0;
 
         // code here
-
-        // create and use GetAverageWithoutMinMax(matrix);
-        static double GetAverageWithoutMinMax(int[,] matrix)
-        {
-            if (matrix == null || matrix.GetLength(0) == 0) return 0;
-            int min = 1000, max = -1000, k = 0;
-            double sum = 0;
-            for (int i = 0; i < matrix.GetLength(0); i++)
-            {
-                for (int j = 0; j < matrix.GetLength(1); j++)
-                {
-                    int num = matrix[i, j];
-                    if (num < min) min = num;
-                    if (num > max) max = num;
-                    sum += num;
-                    k++;
-                }
-            }
-            sum -= (max + min);
-            k -= 2;
-            return sum / k;
-        }
         double[] avg = new double[3];
         avg[0] = GetAverageWithoutMinMax(A);
         avg[1] = GetAverageWithoutMinMax(B);
@@ -580,65 +546,67 @@ public class Program
         // end
     }
 
+
+
+    //TASK_2_17
+    // MaxInRow
+    public int MaxInRow(int[,] matrix, int index)
+    {
+        int max = matrix[index, 0];
+        for (int j = 1; j < matrix.GetLength(1); j++)
+        {
+            if (matrix[index, j] > max) max = matrix[index, j];
+        }
+        return max;
+    }
+    // create and use SortRowsByMaxElement(matrix);
+    public void SortRowsByMaxElement(int[,] matrix)
+    {
+        if (matrix == null || matrix.GetLength(0) == 0) return;
+
+        int row = matrix.GetLength(0);
+        if (row <= 1) return;
+
+        int[] rowIndex = new int[row];
+        for (int i = 0; i < row; i++)
+        {
+            rowIndex[i] = i;
+        }
+
+        for (int i = 0; i < row - 1; i++)
+        {
+            for (int j = 0; j < row - i - 1; j++)
+            {
+                if (MaxInRow(matrix, rowIndex[j]) < MaxInRow(matrix, rowIndex[j + 1]))
+                {
+                    int temp = rowIndex[j];
+                    rowIndex[j] = rowIndex[j + 1];
+                    rowIndex[j + 1] = temp;
+                }
+            }
+        }
+
+        int[,] tempMatrix = new int[row, matrix.GetLength(1)];
+        for (int i = 0; i < row; i++)
+        {
+            for (int j = 0; j < matrix.GetLength(1); j++)
+            {
+                tempMatrix[i, j] = matrix[i, j];
+            }
+        }
+
+        for (int i = 0; i < row; i++)
+        {
+            int idx = rowIndex[i];
+            for (int j = 0; j < matrix.GetLength(1); j++)
+            {
+                matrix[i, j] = tempMatrix[idx, j];
+            }
+        }
+    }
     public void Task_2_17(int[,] A, int[,] B)
     {
         // code here
-
-        // MaxInRow
-        static int MaxInRow(int[,] matrix, int index)
-        {
-            int max = matrix[index, 0];
-            for (int j = 1; j < matrix.GetLength(1); j++)
-            {
-                if (matrix[index, j] > max) max = matrix[index, j];
-            }
-            return max;
-        }
-        // create and use SortRowsByMaxElement(matrix);
-        static void SortRowsByMaxElement(int[,] matrix)
-        {
-            if (matrix == null || matrix.GetLength(0) == 0) return;
-
-            int row = matrix.GetLength(0);
-            if (row <= 1) return;
-
-            int[] rowIndex = new int[row];
-            for (int i = 0; i < row; i++)
-            {
-                rowIndex[i] = i;
-            }
-
-            for (int i = 0; i < row - 1; i++)
-            {
-                for (int j = 0; j < row - i - 1; j++)
-                {
-                    if (MaxInRow(matrix, rowIndex[j]) < MaxInRow(matrix, rowIndex[j + 1]))
-                    {
-                        int temp = rowIndex[j];
-                        rowIndex[j] = rowIndex[j + 1];
-                        rowIndex[j + 1] = temp;
-                    }
-                }
-            }
-
-            int[,] tempMatrix = new int[row, matrix.GetLength(1)];
-            for (int i = 0; i < row; i++)
-            {
-                for (int j = 0; j < matrix.GetLength(1); j++)
-                {
-                    tempMatrix[i, j] = matrix[i, j];
-                }
-            }
-
-            for (int i = 0; i < row; i++)
-            {
-                int idx = rowIndex[i];
-                for (int j = 0; j < matrix.GetLength(1); j++)
-                {
-                    matrix[i, j] = tempMatrix[idx, j];
-                }
-            }
-        }
         SortRowsByMaxElement(A);
         SortRowsByMaxElement(B);
         // end
@@ -653,29 +621,14 @@ public class Program
         // end
     }
 
+
+    //TASK_2_19
+    // use RemoveRow(matrix, rowIndex); from 2_13
     public void Task_2_19(ref int[,] matrix)
     {
         // code here
         if (matrix == null || matrix.GetLength(0) == 0) return;
-        // use RemoveRow(matrix, rowIndex); from 2_13
-        static int[,] RemoveRow(int[,] matrix, int rowIndex)
-        {
-            int row = matrix.GetLength(0);
-            int col = matrix.GetLength(1);
-            int[,] newMatrix = new int[row - 1, col];
-            for (int i = 0, newRow = 0; i < row; i++)
-            {
-                if (i != rowIndex)
-                {
-                    for (int j = 0; j < col; j++)
-                    {
-                        newMatrix[newRow, j] = matrix[i, j];
-                    }
-                    newRow++;
-                }
-            }
-            return newMatrix;
-        }
+        
         for (int i = matrix.GetLength(0) - 1; i >= 0; i--)
         {
             bool ZeroInRow = false;
@@ -700,33 +653,34 @@ public class Program
         // end
     }
 
+
+    //TASK_2_21
+    //FindMin
+    public int FindMin(int[,] matrix, int row)
+    {
+        int min = 1000;
+        for (int j = row; j < matrix.GetLength(1); j++)
+        {
+            if (matrix[row, j] < min) min = matrix[row, j];
+        }
+        return min;
+    }
+    // create and use CreateArrayFromMins(matrix);
+    public int[] CreateArrayFromMins(int[,] matrix)
+    {
+        int[] result = new int[matrix.GetLength(0)];
+        for (int i = 0; i < matrix.GetLength(0); i++)
+        {
+            result[i] = FindMin(matrix, i);
+        }
+        return result;
+    }
     public void Task_2_21(int[,] A, int[,] B, out int[] answerA, out int[] answerB)
     {
         answerA = null;
         answerB = null;
 
         // code here
-
-        //FindMin
-        static int FindMin(int[,] matrix, int row)
-        {
-            int min = 1000;
-            for (int j = row; j < matrix.GetLength(1); j++)
-            {
-                if (matrix[row, j] < min) min = matrix[row, j];
-            }
-            return min;
-        }
-        // create and use CreateArrayFromMins(matrix);
-        static int[] CreateArrayFromMins(int[,] matrix)
-        {
-            int[] result = new int[matrix.GetLength(0)];
-            for (int i = 0; i < matrix.GetLength(0); i++)
-            {
-                result[i] = FindMin(matrix, i);
-            }
-            return result;
-        }
         if (A == null || B == null) return;
         answerA = CreateArrayFromMins(A);
         answerB = CreateArrayFromMins(B);
@@ -746,63 +700,66 @@ public class Program
         // end
     }
 
+
+
+    //TASK_2_23
+    // create and use MatrixValuesChange(matrix);
+    public void MatrixValuesChange(double[,] matrix)
+    {
+        int row = matrix.GetLength(0);
+        int col = matrix.GetLength(1);
+        double[] values = new double[row * col];
+        int[] rowIndex = new int[row * col];
+        int[] colIndex = new int[row * col];
+
+        //copy
+        int k = 0;
+        for (int i = 0; i < row; i++)
+        {
+            for (int j = 0; j < col; j++)
+            {
+                values[k] = matrix[i, j];
+                rowIndex[k] = i;
+                colIndex[k] = j;
+                k++;
+            }
+        }
+
+        //sort
+        for (int i = 0; i < row * col; i++)
+        {
+            for (int j = 0; j < row * col - i - 1; j++)
+            {
+                if (values[j] < values[j + 1])
+                {
+                    double tempvalues = values[j];
+                    values[j] = values[j + 1];
+                    values[j + 1] = tempvalues;
+
+                    int temprow = rowIndex[j];
+                    rowIndex[j] = rowIndex[j + 1];
+                    rowIndex[j + 1] = temprow;
+
+                    int tempcol = colIndex[j];
+                    colIndex[j] = colIndex[j + 1];
+                    colIndex[j + 1] = tempcol;
+                }
+            }
+        }
+
+        //change
+        for (int i = 0; i < row * col; i++)
+        {
+            if (i < 5 && matrix[rowIndex[i], colIndex[i]] > 0) matrix[rowIndex[i], colIndex[i]] *= 2;
+            else if (i < 5 && matrix[rowIndex[i], colIndex[i]] < 0) matrix[rowIndex[i], colIndex[i]] /= 2;
+            else if (i >= 5 && matrix[rowIndex[i], colIndex[i]] > 0) matrix[rowIndex[i], colIndex[i]] /= 2;
+            else matrix[rowIndex[i], colIndex[i]] *= 2;
+        }
+    }
     public void Task_2_23(double[,] A, double[,] B)
     {
         // code here
         if (A == null || B == null) return;
-        // create and use MatrixValuesChange(matrix);
-        static void MatrixValuesChange(double[,] matrix)
-        {
-            int row = matrix.GetLength(0);
-            int col = matrix.GetLength(1);
-            double[] values = new double[row * col];
-            int[] rowIndex = new int[row * col];
-            int[] colIndex = new int[row * col];
-
-            //copy
-            int k = 0;
-            for (int i = 0; i < row; i++)
-            {
-                for (int j = 0; j < col; j++)
-                {
-                    values[k] = matrix[i, j];
-                    rowIndex[k] = i;
-                    colIndex[k] = j;
-                    k++;
-                }
-            }
-
-            //sort
-            for (int i = 0; i < row * col; i++)
-            {
-                for (int j = 0; j < row * col - i - 1; j++)
-                {
-                    if (values[j] < values[j + 1])
-                    {
-                        double tempvalues = values[j];
-                        values[j] = values[j + 1];
-                        values[j + 1] = tempvalues;
-
-                        int temprow = rowIndex[j];
-                        rowIndex[j] = rowIndex[j + 1];
-                        rowIndex[j + 1] = temprow;
-
-                        int tempcol = colIndex[j];
-                        colIndex[j] = colIndex[j + 1];
-                        colIndex [j + 1] = tempcol;
-                    }
-                }
-            }
-
-            //change
-            for (int i = 0; i < row * col; i++)
-            {
-                if (i < 5 && matrix[rowIndex[i], colIndex[i]] > 0) matrix[rowIndex[i], colIndex[i]] *= 2;
-                else if (i < 5 && matrix[rowIndex[i], colIndex[i]] < 0) matrix[rowIndex[i], colIndex[i]] /= 2;
-                else if (i >= 5 && matrix[rowIndex[i], colIndex[i]] > 0) matrix[rowIndex[i], colIndex[i]] /= 2;
-                else matrix[rowIndex[i], colIndex[i]] *= 2;
-            }
-        }
         MatrixValuesChange(A);
         MatrixValuesChange(B);
         // end
@@ -818,39 +775,41 @@ public class Program
         // end
     }
 
+
+
+    //TASK_2_25
+    // in FindRowWithMaxNegativeCount create and use CountNegativeInRow(matrix, rowIndex); like in 2_22
+    public int CountNegativeInRow(int[,] matrix, int rowIndex)
+    {
+        int count = 0;
+        for (int j = 0; j < matrix.GetLength(1); j++)
+        {
+            if (matrix[rowIndex, j] < 0) count++;
+        }
+        return count;
+    }
+    // create and use FindRowWithMaxNegativeCount(matrix);
+    public int FindRowWithMaxNegativeCount(int[,] matrix)
+    {
+        int maxCount = 0;
+        int maxRowIndex = 0;
+        for (int i = 0; i < matrix.GetLength(0); i++)
+        {
+            int CountNeg = CountNegativeInRow(matrix, i);
+            if (CountNeg > maxCount)
+            {
+                maxCount = CountNeg;
+                maxRowIndex = i;
+            }
+        }
+        return maxRowIndex;
+    }
     public void Task_2_25(int[,] A, int[,] B, out int maxA, out int maxB)
     {
         maxA = 0;
         maxB = 0;
 
         // code here
-
-        // in FindRowWithMaxNegativeCount create and use CountNegativeInRow(matrix, rowIndex); like in 2_22
-        static int CountNegativeInRow(int[,] matrix, int rowIndex)
-        {
-            int count = 0;
-            for (int j = 0; j < matrix.GetLength(1); j++)
-            {
-                if (matrix[rowIndex, j] < 0) count++;
-            }
-            return count;
-        }
-        // create and use FindRowWithMaxNegativeCount(matrix);
-        static int FindRowWithMaxNegativeCount(int[,] matrix)
-        {
-            int maxCount = 0;
-            int maxRowIndex = 0;
-            for (int i = 0; i < matrix.GetLength(0); i++)
-            {
-                int CountNeg = CountNegativeInRow(matrix, i);
-                if (CountNeg > maxCount)
-                {
-                    maxCount = CountNeg;
-                    maxRowIndex = i;
-                }
-            }
-            return maxRowIndex;
-        }
         maxA = FindRowWithMaxNegativeCount(A);
         maxB = FindRowWithMaxNegativeCount(B);
         // end
@@ -866,51 +825,54 @@ public class Program
         // end
     }
 
+
+
+    //TASK_2_27
+    // create and use FindRowMaxIndex(matrix, rowIndex, out columnIndex);
+    public bool FindRowMaxIndex(int[,] matrix, int rowIndex, out int columnIndex)
+    {
+        int max = -1000;
+        columnIndex = -1;
+        bool prosto = false;
+        for (int j = 0; j < matrix.GetLength(1); j++)
+        {
+            if (matrix[rowIndex, j] > max)
+            {
+                max = matrix[rowIndex, j];
+                columnIndex = j;
+                prosto = true;
+            }
+        }
+        return prosto;
+    }
+    // create and use ReplaceMaxElementOdd(matrix, row, column); –Ω–µ—á–µ—Ç–Ω—ã–π
+    public void ReplaceMaxElementOdd(int[,] matrix, int row, int column)
+    {
+        matrix[row, column] *= (column + 1);
+    }
+    // create and use ReplaceMaxElementEven(matrix, row, column);
+    public void ReplaceMaxElementEven(int[,] matrix, int row, int column)
+    {
+        matrix[row, column] = 0;
+    }
+    //replace
+    public void Replace(int[,] matrix)
+    {
+        for (int i = 0; i < matrix.GetLength(0); i++)
+        {
+            int columnIndex;
+            if (FindRowMaxIndex(matrix, i, out columnIndex))
+            {
+                if ((i + 1) % 2 == 0) ReplaceMaxElementEven(matrix, i, columnIndex);
+                else ReplaceMaxElementOdd(matrix, i, columnIndex);
+            }
+
+        }
+    }
     public void Task_2_27(int[,] A, int[,] B)
     {
         // code here
         if (A == null && B == null) return;
-        // create and use FindRowMaxIndex(matrix, rowIndex, out columnIndex);
-        static bool FindRowMaxIndex(int[,] matrix, int rowIndex, out int columnIndex)
-        {
-            int max = -1000;
-            columnIndex = -1;
-            bool prosto = false;
-            for (int j = 0; j < matrix.GetLength(1); j++)
-            {
-                if (matrix[rowIndex, j] > max)
-                {
-                    max = matrix[rowIndex, j];
-                    columnIndex = j;
-                    prosto = true;
-                }
-            }
-            return prosto;
-        }
-        // create and use ReplaceMaxElementOdd(matrix, row, column); ÌÂ˜ÂÚÌ˚È
-        static void ReplaceMaxElementOdd(int[,] matrix, int row, int column)
-        {
-            matrix[row, column] *= (column + 1);
-        }
-        // create and use ReplaceMaxElementEven(matrix, row, column);
-        static void ReplaceMaxElementEven(int[,] matrix, int row, int column)
-        {
-            matrix[row, column] = 0;
-        }
-        //replace
-        static void Replace(int[,] matrix)
-        {
-            for (int i = 0; i < matrix.GetLength(0); i++)
-            {
-                int columnIndex;
-                if (FindRowMaxIndex(matrix, i, out columnIndex))
-                {
-                    if ((i + 1) % 2 == 0) ReplaceMaxElementEven(matrix, i, columnIndex);
-                    else ReplaceMaxElementOdd(matrix, i, columnIndex);
-                }
-                
-            }
-        }
         Replace(A);
         Replace(B);
         // end
@@ -1142,7 +1104,7 @@ public class Program
         }
         return F1;
     }
-    private YFunction GetFunction2()
+    public YFunction GetFunction2()
     {
         double F2(double x)
         {
@@ -1187,34 +1149,11 @@ public class Program
 
 
     //TASK 7
-
     // create and use public delegate CountPositive(matrix, index);
     public delegate int CountPositive(int[,] matrix, int index);
 
     // use CountRowPositive(matrix, rowIndex) from Task_2_7
-    public int CountRowPositive(int[,] matrix, int rowIndex)
-    {
-        if (matrix == null || matrix.GetLength(0) == 0) return -1;
-        int k = 0;
-        for (int j = 0; j < matrix.GetLength(1); j++)
-        {
-            if (matrix[rowIndex, j] > 0) k++;
-        }
-        return k;
-    }
-
     // use CountColumnPositive(matrix, colIndex) from Task_2_7
-    public int CountColumnPositive(int[,] matrix, int colIndex)
-    {
-        if (matrix == null || matrix.GetLength(0) == 0) return -1;
-        int k = 0;
-        for (int i = 0; i < matrix.GetLength(0); i++)
-        {
-            if (matrix[i, colIndex] > 0) k++;
-        }
-        return k;
-    }
-
     // create and use method InsertColumn(matrixB, CountRow, matrixC, CountColumn);
     public void InsertColumn(ref int[,] matrixB, int CountRow, int[,] matrixC, int CountColumn)
     {
@@ -1250,16 +1189,16 @@ public class Program
         // use CountColumnPositive(matrix, colIndex) from Task_2_7
         // create and use method InsertColumn(matrixB, CountRow, matrixC, CountColumn);
 
-        CountPositive countRowDelegate = CountRowPositive;
-        CountPositive countColumnDelegate = CountColumnPositive;
+        CountPositive countDelegate;
 
         int maxi = -1, maxki = -1;
         int maxj = -1, maxkj = -1;
         if (B != null && B.GetLength(0) != 0)
         {
+            countDelegate = CountRowPositive;
             for (int i = 0; i < B.GetLength(0); i++)
             {
-                int k = CountRowPositive(B, i);
+                int k = countDelegate(B, i);
                 if (k > maxki)
                 {
                     maxki = k;
@@ -1269,9 +1208,10 @@ public class Program
         }
         if (C != null && C.GetLength(0) != 0)
         {
+            countDelegate = CountColumnPositive;
             for (int j = 0; j < C.GetLength(1); j++)
             {
-                int k = CountColumnPositive(C, j);
+                int k = countDelegate(C, j);
                 if (k > maxkj)
                 {
                     maxkj = k;
@@ -1311,6 +1251,7 @@ public class Program
     public delegate void FindElementDelegate(int[,] matrix, out int row, out int col);
 
     // create and use method RemoveRows(matrix, findMax, findMin)
+    
     private void RemoveRows(ref int[,] matrix, FindElementDelegate findMax, FindElementDelegate findMin)
     {
         findMax(matrix, out int maxrow, out int maxcol);
@@ -1327,61 +1268,7 @@ public class Program
             matrix = RemoveRow(matrix, minrow);
         }
     }
-
-    //»—’ŒƒÕ€≈ ‘”Õ ÷»» RemoveRow FindMaxIndex FindMinIndex
-    static int[,] RemoveRow(int[,] matrix, int rowIndex)
-    {
-        int row = matrix.GetLength(0);
-        int col = matrix.GetLength(1);
-        int[,] newMatrix = new int[row - 1, col];
-        for (int i = 0, newRow = 0; i < row; i++)
-        {
-            if (i != rowIndex)
-            {
-                for (int j = 0; j < col; j++)
-                {
-                    newMatrix[newRow, j] = matrix[i, j];
-                }
-                newRow++;
-            }
-        }
-        return newMatrix;
-    }
-    static void FindMaxIndex(int[,] matrix, out int row, out int col)
-    {
-        row = 0; col = 0;
-        int max = -1000;
-        for (int i = 0; i < matrix.GetLength(0); i++)
-        {
-            for (int j = 0; j < matrix.GetLength(1); j++)
-            {
-                if (matrix[i, j] > max)
-                {
-                    max = matrix[i, j];
-                    row = i;
-                    col = j;
-                }
-            }
-        }
-    }
-    static void FindMinIndex(int[,] matrix, out int row, out int col)
-    {
-        row = 0; col = 0;
-        int min = 1000;
-        for (int i = 0; i < matrix.GetLength(0); i++)
-        {
-            for (int j = 0; j < matrix.GetLength(1); j++)
-            {
-                if (matrix[i, j] < min)
-                {
-                    min = matrix[i, j];
-                    row = i;
-                    col = j;
-                }
-            }
-        }
-    }
-
+    
     public void Task_3_13(ref int[,] matrix)
     {
         // code here
@@ -1418,34 +1305,10 @@ public class Program
     public delegate void ReplaceMaxElement(int[,] matrix, int rowIndex, int maxColIndex);
 
     // use ReplaceMaxElementOdd(matrix) from Task_2_27
-    static void ReplaceMaxElementOdd(int[,] matrix, int row, int column)
-    {
-        matrix[row, column] *= (column + 1);
-    }
     // use ReplaceMaxElementEven(matrix) from Task_2_27
-    static void ReplaceMaxElementEven(int[,] matrix, int row, int column)
-    {
-        matrix[row, column] = 0;
-    }
-    //FindRowMaxIndex ËÁ 2_27
-    static bool FindRowMaxIndex(int[,] matrix, int rowIndex, out int columnIndex)
-    {
-        int max = -1000;
-        columnIndex = -1;
-        bool prosto = false;
-        for (int j = 0; j < matrix.GetLength(1); j++)
-        {
-            if (matrix[rowIndex, j] > max)
-            {
-                max = matrix[rowIndex, j];
-                columnIndex = j;
-                prosto = true;
-            }
-        }
-        return prosto;
-    }
+    //FindRowMaxIndex –∏–∑ 2_27
     // create and use method EvenOddRowsTransform(matrix, replaceMaxElementOdd, replaceMaxElementEven);
-    private void EvenOddRowsTransform(int[,] matrix, ReplaceMaxElement replaceMaxOdd, ReplaceMaxElement replaceMaxEven)
+    public void EvenOddRowsTransform(int[,] matrix, ReplaceMaxElement replaceMaxOdd, ReplaceMaxElement replaceMaxEven)
     {
         if (matrix == null || matrix.Length == 0) return;
         for (int i = 0; i < matrix.GetLength(0); i++)
